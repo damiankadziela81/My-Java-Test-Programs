@@ -69,37 +69,6 @@ public class Main {
         } while (H > (2 * R));
 
 
-        /*
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj liczbe");
-        String liczba = scanner.nextLine();
-        String liczba_trimmed = liczba.trim();
-
-        int dlugosc = liczba_trimmed.length();
-        boolean result=false;
-        int iteracje=0;
-
-        for (int i = 0; i < dlugosc; i++) {
-            char znak = liczba_trimmed.charAt(i);
-            if ((znak>=48 && znak<=57) || (i>0 && i<dlugosc-1 && znak=='.'))
-                 {
-                    result = true;
-                    iteracje = i;
-                 }
-            else {
-                    result = false;
-                    iteracje = i;
-                    break;
-                 }
-            System.out.println(znak);
-        }
-        System.out.println("iteracje: "+iteracje);
-        System.out.println("result: "+result);
-
-
-        //String name="";
-        //while (name.isEmpty())
-        */
         // obliczenia pojemnosci plynu w cysternie
         double V;
         double a;
