@@ -5,30 +5,30 @@ import java.util.Scanner;
 
 //funkcja weryfikujaca czy string to liczba rzeczywista dodatnia
 class IsStringNumber {
-    public static boolean verify(String liczba) {
+    public static boolean verify(String potenialNumber) {
 
-        String trimmedNumber = liczba.trim();
+        String trimmedNumber = potenialNumber.trim();
         int stringLenght = trimmedNumber.length();
         boolean result = false;
-        int iteracje = 0;
+        int iteration = 0;
 
         for (int i = 0; i < stringLenght; i++) {
             //usuniecie zbednych spacji
-            char znak = trimmedNumber.charAt(i);
-            System.out.println(znak);
+            char individualChar = trimmedNumber.charAt(i);
+            System.out.println(individualChar);
             //sprawdzenie czy w stringu sa liczby - kody ASCII 48-57 lub znak . ale nie na 1-szej lub ostatniej pozycji
-            if ((znak >= 48 && znak <= 57) || (i > 0 && i < stringLenght - 1 && znak == '.')) {
+            if ((individualChar >= 48 && individualChar <= 57) || (i > 0 && i < stringLenght - 1 && individualChar == '.')) {
                 result = true;
-                iteracje = i;
+                iteration = i;
             } else {
                 result = false;
-                iteracje = i;
+                iteration = i;
                 break;
             }
             
         }
 
-        System.out.println("iteracje: " + iteracje);
+        System.out.println("iterations: " + iteration);
         System.out.println("result: " + result);
         System.out.println("---------------");
         return result;
@@ -40,7 +40,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String temp;
+        String tempString;
         double L;
         double R;
         double H;
@@ -49,20 +49,20 @@ public class Main {
         // zbieranie danych i kontrola czy uzytkownik podal liczbe rzeczywista
 
         do {
-            temp = JOptionPane.showInputDialog("Podaj dlugosc zbiornika [m]");
-        } while (!IsStringNumber.verify(temp));
-        L = Double.parseDouble(temp);
+            tempString = JOptionPane.showInputDialog("Podaj dlugosc zbiornika [m]");
+        } while (!IsStringNumber.verify(tempString));
+        L = Double.parseDouble(tempString);
 
         do {
-            temp = JOptionPane.showInputDialog("Podaj srednice zbiornika [m]");
-        } while (!IsStringNumber.verify(temp));
-        R = Double.parseDouble(temp) / 2;
+            tempString = JOptionPane.showInputDialog("Podaj srednice zbiornika [m]");
+        } while (!IsStringNumber.verify(tempString));
+        R = Double.parseDouble(tempString) / 2;
 
         do {
             do {
-                temp = JOptionPane.showInputDialog("Podaj wysokosc cieczy w zbiorniku [m]");
-            } while (!IsStringNumber.verify(temp));
-            H = Double.parseDouble(temp);
+                tempString = JOptionPane.showInputDialog("Podaj wysokosc cieczy w zbiorniku [m]");
+            } while (!IsStringNumber.verify(tempString));
+            H = Double.parseDouble(tempString);
             if (H > (2 * R)) {
                 JOptionPane.showMessageDialog(null, "Poziom nie moze przekraczac srednicy zbiornika.");
             }
