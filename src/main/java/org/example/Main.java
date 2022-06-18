@@ -9,9 +9,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String tempString;
-        double L;
-        double R;
-        double H;
+        Tank tank = new Tank();
 
         JOptionPane.showMessageDialog(null, "Obliczmy poziom cieczy w zbiorniku (cysterna).");
         // zbieranie danych i kontrola czy uzytkownik podal liczbe rzeczywista
@@ -19,40 +17,28 @@ public class Main {
         do {
             tempString = JOptionPane.showInputDialog("Podaj dlugosc zbiornika [m]");
         } while (!verify(tempString));
-        L = Double.parseDouble(tempString);
+        tank.lenght = Double.parseDouble(tempString);
 
         do {
             tempString = JOptionPane.showInputDialog("Podaj srednice zbiornika [m]");
         } while (!verify(tempString));
-        R = Double.parseDouble(tempString) / 2;
+        tank.radius = Double.parseDouble(tempString) / 2;
 
         do {
             do {
                 tempString = JOptionPane.showInputDialog("Podaj wysokosc cieczy w zbiorniku [m]");
             } while (!verify(tempString));
-            H = Double.parseDouble(tempString);
-            if (H > (2 * R)) {
+            tank.fluidLevel = Double.parseDouble(tempString);
+            if (tank.fluidLevel > (2 * tank.radius)) {
                 JOptionPane.showMessageDialog(null, "Poziom nie moze przekraczac srednicy zbiornika.");
             }
-        } while (H > (2 * R));
+        } while (tank.fluidLevel > (2 * tank.radius));
 
 
         // obliczenia pojemnosci plynu w cysternie
-        double V;
-        double a;
-        double b;
-        double c;
-        if (H <= R) {
-            a = 1;
-            b = H;
-            c = 0;
-        } else {
-            a = -1;
-            b = 2 * R - H;
-            c = Math.PI * R * R * L;
-        }
-        V = a * L * (R * R * Math.acos((R - b) / R) - (R - b) * Math.sqrt(b * (2 * R - b))) + c;
-        JOptionPane.showMessageDialog(null, "Dla L=" + L + " R=" + R + " H=" + H + "\nObjetosc plynu w zbiorniku to " + V + " m3");
+        double volume;
+        volume=calculateVolume(tank.lenght, tank.radius, tank.fluidLevel);
+        JOptionPane.showMessageDialog(null, "Dla L=" + tank.lenght + " R=" + tank.radius + " H=" + tank.fluidLevel + "\nObjetosc plynu w zbiorniku to " + volume + " m3");
     }
 
     //funkcja weryfikujaca czy string to liczba rzeczywista dodatnia
@@ -84,5 +70,21 @@ public class Main {
         System.out.println("---------------");
         return result;
     }
+
+    static double calculateVolume (double lenght,double radius, double level){
+        double a;
+        double b;
+        double c;
+        if (level <= radius) {
+            a = 1;
+            b = level;
+            c = 0;
+        } else {
+            a = -1;
+            b = 2 * radius - level;
+            c = Math.PI * radius * radius * lenght;
+        }
+        return a * lenght * (radius * radius * Math.acos((radius - b) / radius) - (radius - b) * Math.sqrt(b * (2 * radius - b))) + c;
+        }
 
 }
