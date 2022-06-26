@@ -1,39 +1,38 @@
 package org.example;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Tank tank1 = new Tank(0,0,0,0);
-        Tank tank2 = new Tank(0,0,0,0);
-        Tank tank3 = new Tank(0,0,0,0);
-        Tank[] tankArray = {tank1,tank2,tank3};
+        int numberOfTanks = DataInput.readNumberOfTanks();
 
+        ArrayList<Tank> tankArrayList = new ArrayList<>();
+        for (int i = 0; i < numberOfTanks; i++) {
+            Tank tank = new Tank(0,0,0,0);
+            tankArrayList.add(tank);
+        }
+        System.out.println("ArrayList " + tankArrayList);
+        System.out.println("size of arryList " + tankArrayList.size());
 
+        JOptionPane.showMessageDialog(null, "Obliczmy poziom cieczy w " + tankArrayList.size() + " zbiornikach (cysternach).");
 
-        JOptionPane.showMessageDialog(null, "Obliczmy poziom cieczy w 3 zbiornikach (cysternach).");
-
-        DataInput.readData(tankArray);
+        DataInput.readData(tankArrayList);
 
         // obliczenia pojemnosci plynu w cysternach
         double arrayVolume=0;
-        for (int i = 0; i < tankArray.length; i++) {
-            tankArray[i].calculateVolume();
-            arrayVolume=arrayVolume+tankArray[i].fluidVolume;
-            JOptionPane.showMessageDialog(null, "Dla L=" + tankArray[i].lenght + " R=" +
-                    tankArray[i].radius + " H=" + tankArray[i].fluidLevel + "\nObjetosc plynu w zbiorniku nr "+(i+1)+" to "
-                    + tankArray[i].fluidVolume + " m3");
+        for (int i = 0; i < tankArrayList.size(); i++) {
+            Tank tank;
+            tank = tankArrayList.get(i);
+            tank.calculateVolume();
+            arrayVolume=arrayVolume+tank.fluidVolume;
+            JOptionPane.showMessageDialog(null, "Dla zbiornika nr"+(i+1)+" L=" + tank.lenght + " R=" +
+                    tank.radius + " H=" + tank.fluidLevel + "\nObjetosc plynu wynosi: " + tank.fluidVolume + " m3");
+
         }
-//
-//        for (Tank x : tankArray) {
-//            x.calculateVolume();
-//
-//
-//        }
 
         JOptionPane.showMessageDialog(null, "Objetosc plynu w zbiornikach to " + arrayVolume + " m3");
     }
-
 }
